@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MonitoringModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Monitoring.dbo.MostRecentLoggingEvents' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MostRecentLoggingEvents">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="AlertSent" Type="int" />
+          <Property Name="TestingHost" Type="nvarchar" MaxLength="100" />
+          <Property Name="TestingUser" Type="nvarchar" MaxLength="100" />
+          <Property Name="TestID" Type="int" />
+          <Property Name="TargetMachine" Type="nvarchar" MaxLength="100" />
+          <Property Name="FeedbackValue" Type="nvarchar" MaxLength="100" />
+          <Property Name="Successful" Type="bit" />
+          <Property Name="FeedbackMessage" Type="nvarchar(max)" />
+          <Property Name="ResponseTime" Type="bigint" />
+          <Property Name="TimeStamp" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TestDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestDisplayName" Type="nvarchar" MaxLength="100" />
+          <Property Name="TestProtocol" Type="nvarchar" MaxLength="100" />
+          <Property Name="TestDescription" Type="nvarchar(max)" />
+          <Property Name="TokenNeeded" Type="nvarchar" MaxLength="100" />
+          <Property Name="TestOptionString" Type="nvarchar(max)" />
+          <Property Name="EmailDistributionList" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Monitoring.dbo.MostRecentEventDetails_vw' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MostRecentEventDetails_vw">
+          <Key>
+            <PropertyRef Name="EventId" />
+            <PropertyRef Name="TestID" />
+          </Key>
+          <Property Name="EventId" Type="bigint" Nullable="false" />
+          <Property Name="AlertSent" Type="int" />
+          <Property Name="TestingHost" Type="nvarchar" MaxLength="100" />
+          <Property Name="TestingUser" Type="nvarchar" MaxLength="100" />
+          <Property Name="TargetMachine" Type="nvarchar" MaxLength="100" />
+          <Property Name="FeedbackValue" Type="nvarchar" MaxLength="100" />
+          <Property Name="Successful" Type="bit" />
+          <Property Name="FeedbackMessage" Type="nvarchar(max)" />
+          <Property Name="ResponseTime" Type="bigint" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="TestID" Type="int" Nullable="false" />
+          <Property Name="TestDisplayName" Type="nvarchar" MaxLength="100" />
+          <Property Name="TestProtocol" Type="nvarchar" MaxLength="100" />
+          <Property Name="TestDescription" Type="nvarchar(max)" />
+          <Property Name="TokenNeeded" Type="nvarchar" MaxLength="100" />
+          <Property Name="TestOptionString" Type="nvarchar(max)" />
+          <Property Name="EmailDistributionList" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityContainer Name="MonitoringModelStoreContainer">
+          <EntitySet Name="TestDetails" EntityType="Self.TestDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MostRecentLoggingEvents" EntityType="Self.MostRecentLoggingEvents" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MostRecentLoggingEvents].[ID] AS [ID], 
+    [MostRecentLoggingEvents].[AlertSent] AS [AlertSent], 
+    [MostRecentLoggingEvents].[TestingHost] AS [TestingHost], 
+    [MostRecentLoggingEvents].[TestingUser] AS [TestingUser], 
+    [MostRecentLoggingEvents].[TestID] AS [TestID], 
+    [MostRecentLoggingEvents].[TargetMachine] AS [TargetMachine], 
+    [MostRecentLoggingEvents].[FeedbackValue] AS [FeedbackValue], 
+    [MostRecentLoggingEvents].[Successful] AS [Successful], 
+    [MostRecentLoggingEvents].[FeedbackMessage] AS [FeedbackMessage], 
+    [MostRecentLoggingEvents].[ResponseTime] AS [ResponseTime], 
+    [MostRecentLoggingEvents].[TimeStamp] AS [TimeStamp]
+    FROM [dbo].[MostRecentLoggingEvents] AS [MostRecentLoggingEvents]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MostRecentEventDetails_vw" EntityType="Self.MostRecentEventDetails_vw" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MostRecentEventDetails_vw].[EventId] AS [EventId], 
+    [MostRecentEventDetails_vw].[AlertSent] AS [AlertSent], 
+    [MostRecentEventDetails_vw].[TestingHost] AS [TestingHost], 
+    [MostRecentEventDetails_vw].[TestingUser] AS [TestingUser], 
+    [MostRecentEventDetails_vw].[TargetMachine] AS [TargetMachine], 
+    [MostRecentEventDetails_vw].[FeedbackValue] AS [FeedbackValue], 
+    [MostRecentEventDetails_vw].[Successful] AS [Successful], 
+    [MostRecentEventDetails_vw].[FeedbackMessage] AS [FeedbackMessage], 
+    [MostRecentEventDetails_vw].[ResponseTime] AS [ResponseTime], 
+    [MostRecentEventDetails_vw].[TimeStamp] AS [TimeStamp], 
+    [MostRecentEventDetails_vw].[TestID] AS [TestID], 
+    [MostRecentEventDetails_vw].[TestDisplayName] AS [TestDisplayName], 
+    [MostRecentEventDetails_vw].[TestProtocol] AS [TestProtocol], 
+    [MostRecentEventDetails_vw].[TestDescription] AS [TestDescription], 
+    [MostRecentEventDetails_vw].[TokenNeeded] AS [TokenNeeded], 
+    [MostRecentEventDetails_vw].[TestOptionString] AS [TestOptionString], 
+    [MostRecentEventDetails_vw].[EmailDistributionList] AS [EmailDistributionList]
+    FROM [dbo].[MostRecentEventDetails_vw] AS [MostRecentEventDetails_vw]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MonitoringModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TestDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestDisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TestProtocol" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TestDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TokenNeeded" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TestOptionString" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailDistributionList" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MostRecentLoggingEvent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="AlertSent" Type="Int32" />
+          <Property Name="TestingHost" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TestingUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TestID" Type="Int32" />
+          <Property Name="TargetMachine" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FeedbackValue" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Successful" Type="Boolean" />
+          <Property Name="FeedbackMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseTime" Type="Int64" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="MonitoringEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TestDetails" EntityType="Self.TestDetail" />
+          <EntitySet Name="MostRecentLoggingEvents" EntityType="Self.MostRecentLoggingEvent" />
+          <EntitySet Name="MostRecentEventDetails_vw" EntityType="MonitoringModel.MostRecentEventDetails_vw" />
+        </EntityContainer>
+        <EntityType Name="MostRecentEventDetails_vw">
+          <Key>
+            <PropertyRef Name="EventId" />
+            <PropertyRef Name="TestID" />
+          </Key>
+          <Property Name="EventId" Type="Int64" Nullable="false" />
+          <Property Name="AlertSent" Type="Int32" />
+          <Property Name="TestingHost" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TestingUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TargetMachine" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FeedbackValue" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Successful" Type="Boolean" />
+          <Property Name="FeedbackMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseTime" Type="Int64" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="TestID" Type="Int32" Nullable="false" />
+          <Property Name="TestDisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TestProtocol" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TestDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TokenNeeded" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TestOptionString" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailDistributionList" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MonitoringModelStoreContainer" CdmEntityContainer="MonitoringEntities">
+          <EntitySetMapping Name="TestDetails">
+            <EntityTypeMapping TypeName="MonitoringModel.TestDetail">
+              <MappingFragment StoreEntitySet="TestDetails">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TestDisplayName" ColumnName="TestDisplayName" />
+                <ScalarProperty Name="TestProtocol" ColumnName="TestProtocol" />
+                <ScalarProperty Name="TestDescription" ColumnName="TestDescription" />
+                <ScalarProperty Name="TokenNeeded" ColumnName="TokenNeeded" />
+                <ScalarProperty Name="TestOptionString" ColumnName="TestOptionString" />
+                <ScalarProperty Name="EmailDistributionList" ColumnName="EmailDistributionList" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MostRecentLoggingEvents">
+            <EntityTypeMapping TypeName="MonitoringModel.MostRecentLoggingEvent">
+              <MappingFragment StoreEntitySet="MostRecentLoggingEvents">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AlertSent" ColumnName="AlertSent" />
+                <ScalarProperty Name="TestingHost" ColumnName="TestingHost" />
+                <ScalarProperty Name="TestingUser" ColumnName="TestingUser" />
+                <ScalarProperty Name="TestID" ColumnName="TestID" />
+                <ScalarProperty Name="TargetMachine" ColumnName="TargetMachine" />
+                <ScalarProperty Name="FeedbackValue" ColumnName="FeedbackValue" />
+                <ScalarProperty Name="Successful" ColumnName="Successful" />
+                <ScalarProperty Name="FeedbackMessage" ColumnName="FeedbackMessage" />
+                <ScalarProperty Name="ResponseTime" ColumnName="ResponseTime" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MostRecentEventDetails_vw">
+            <EntityTypeMapping TypeName="MonitoringModel.MostRecentEventDetails_vw">
+              <MappingFragment StoreEntitySet="MostRecentEventDetails_vw">
+                <ScalarProperty Name="EmailDistributionList" ColumnName="EmailDistributionList" />
+                <ScalarProperty Name="TestOptionString" ColumnName="TestOptionString" />
+                <ScalarProperty Name="TokenNeeded" ColumnName="TokenNeeded" />
+                <ScalarProperty Name="TestDescription" ColumnName="TestDescription" />
+                <ScalarProperty Name="TestProtocol" ColumnName="TestProtocol" />
+                <ScalarProperty Name="TestDisplayName" ColumnName="TestDisplayName" />
+                <ScalarProperty Name="TestID" ColumnName="TestID" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="ResponseTime" ColumnName="ResponseTime" />
+                <ScalarProperty Name="FeedbackMessage" ColumnName="FeedbackMessage" />
+                <ScalarProperty Name="Successful" ColumnName="Successful" />
+                <ScalarProperty Name="FeedbackValue" ColumnName="FeedbackValue" />
+                <ScalarProperty Name="TargetMachine" ColumnName="TargetMachine" />
+                <ScalarProperty Name="TestingUser" ColumnName="TestingUser" />
+                <ScalarProperty Name="TestingHost" ColumnName="TestingHost" />
+                <ScalarProperty Name="AlertSent" ColumnName="AlertSent" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
